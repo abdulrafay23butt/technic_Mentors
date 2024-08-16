@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import swal from 'sweetalert2'
 import "./AssignProject.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPeopleGroup, faUser, faCircleUser } from '@fortawesome/free-solid-svg-icons'
+import { faEye, faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 import { faProductHunt } from '@fortawesome/free-brands-svg-icons';
 function AssignProject() {
@@ -15,6 +15,7 @@ function AssignProject() {
         select4: '',
     });
     const [individualEmp, setindividualEmp] = useState('');
+    const [selectedEmp, setSelectedEmp] = useState('');
     const [employees, setEmployees] = useState([]);
     const [selectedProject, setSelectedProject] = useState(null);
     const [SelectedTeamProject, setSelectedTeamProject] = useState(null);
@@ -240,52 +241,15 @@ function AssignProject() {
                                     {employees.map((employee) =>
                                         <div key={employee._id}>
                                             <li
-                                                className="list-group-item d-flex justify-content-between align-items-center"
-                                                data-bs-toggle="collapse"
-                                                data-bs-target={`#${employee._id}`}
+                                                className="list-group-item d-flex justify-content-between align-items-center list"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#view"
                                                 style={{ fontSize: "15px" }}
+                                                onClick={() => setSelectedEmp(employee)}
                                             >
                                                 <div className='m-0 empName d-flex justify-content-between fs-5'> <FontAwesomeIcon className=' me-1 mt-1 ' icon={faCircleUser} /> {employee.Name}</div>
                                             </li>
-                                            <div id={employee._id} className="collapse">
-                                                <p className='p-3 pb-0 m-0 fw-bold'> Details</p>
-                                                <ul className='mx-1 p-0' >
-                                                    <li className=' ' >
-                                                        <button
-                                                            type="button"
-                                                            className="btn btn-primary dropdown-toggle "
-                                                            data-bs-toggle="dropdown"
-                                                            aria-expanded="false"
-                                                        >
-                                                            <FontAwesomeIcon className='fs-5 me-1 ' icon={faPeopleGroup} />    Individual Projects: {employee.individual_projects.length}
-                                                        </button>
-                                                        <ul className="dropdown-menu ">
-                                                            {employee.individual_projects.map((individual, index) => (
-                                                                <li key={index} className="list-group-item">
-                                                                    {individual}
-                                                                </li>
-                                                            ))}
-                                                        </ul>
 
-                                                        <button
-                                                            type="button"
-                                                            className="btn btn-success dropdown-toggle "
-                                                            data-bs-toggle="dropdown"
-                                                            aria-expanded="false"
-                                                        >
-                                                            <FontAwesomeIcon className='fs-5 me-1 ' icon={faUser} /> Team Projects: {employee.team_Projects.length}
-                                                        </button>
-                                                        <ul className="dropdown-menu ">
-                                                            {employee.team_Projects.map((team, index) => (
-                                                                <li key={index} className="">
-                                                                    {team}
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-
-                                            </div>
                                         </div>
                                     )}
 
@@ -397,7 +361,7 @@ function AssignProject() {
                                                                     }}
                                                                 >
                                                                     <div className='d-flex justify-content-between'>{project.name}
-                                                                        {(project.Type === "new" && new Date(project.ToDate).toLocaleDateString('en-GB') < new Date().toLocaleDateString('en-GB')) ? (
+                                                                        {(project.Type === "new" && (new Date(project.ToDate) < new Date())) ? (
                                                                             <span className="bg-danger text-light p-1 rounded">Late</span>
                                                                         ) : (<span className="bg-danger text-light p-1 rounded">{project.Type}</span>)}
                                                                     </div>
@@ -646,6 +610,52 @@ function AssignProject() {
             </div>
             {showModal && <div className="modal-backdrop fade show"></div>}
 
+            <div className="modal fade" id="view" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        {selectedEmp && (
+                            <div className="modal-body" style={{ backgroundColor: "#f1f1f1" }}>
+                                <div className='d-flex justify-content-between'>
+                                    <strong>Individual Projects</strong>
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Projects
+                                        </button>
+                                        <ul className=' dropdown-menu'>
+                                            {selectedEmp.individual_projects.map((project) => (
+                                                <li key={project} className='dropdown-item'>{project}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <div className='d-flex justify-content-between mt-3'>
+                                    <strong>Team Projects</strong>
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Projects
+                                        </button>
+                                        <ul className=' dropdown-menu'>
+                                            {selectedEmp.team_Projects.map((project) => (
+                                                <li key={project} className='dropdown-item'>{project}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        )}
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </>
     );
 }

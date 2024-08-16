@@ -9,7 +9,7 @@ router.post('/', async (req,res)=>{
     {
         const existing=await users.find({Email});
         console.log(existing);
-        if(existing.length>0)
+        if(existing.length>0 || !existing)
         {
             return res.status(404).json({message: "Email Already Exists"})
         }
