@@ -1,0 +1,26 @@
+.badge
+{
+    background-color: red !important;
+}
+.dropdown-container {
+    width: 100%;
+}
+
+.dropdown-button {
+    width: 100%;
+}
+
+.dropdown-menu {
+    width: 21%;
+}
+
+.newproject:hover
+{
+    color: rgb(0, 102, 255);
+}
+.workingproject:hover{
+    color: red;
+}
+.completeproject:hover{
+    color: rgb(9, 235, 9);
+}

@@ -1,0 +1,19 @@
+.table-container {
+    height: 300px; 
+    overflow-y: auto;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th, .table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  body{
+    background-color: #f1f1f1;
+  }
+  

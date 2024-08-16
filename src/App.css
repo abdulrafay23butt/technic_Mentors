@@ -1,0 +1,92 @@
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: white;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 10px;
+}
+
+.sidebar a {
+  padding: 10px 0 0 20px;
+  text-decoration: none;
+  color: black;
+  display: block;
+  transition: 0.3s;
+}
+.sidebar a:hover {
+  color: orange;
+}
+
+
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+}
+
+
+
+#main {
+  transition: margin-left .5s;
+}
+
+#main .bell{
+  position: relative;
+  margin-top: 10px;
+}
+
+#main .badge
+{
+  position: absolute;
+  top: 5%; 
+  left: 45%;
+}
+hr
+{
+  margin: 10px 0 10px 0;
+}
+
+input[type=date]
+{
+  padding: 6px 12px 6px 12px;
+}
+.card-container
+{
+  background-color: #f1f1f1;
+}
+
+.searchbutton
+{
+  top: 35% !important;
+}
+.addbutton
+{
+  margin-left: 45% !important;
+}
+@media screen and (max-width: 770px) {
+  .searchbutton
+  {
+    margin-left: 40%;
+  }
+  .cards-container .col-md-4
+  {
+    margin-top: 5% !important;
+  }
+  .addbutton
+  {
+    margin-left: 40%;
+  }
+}
+.notification_button:hover{
+  background-color :#f1f1f1;
+}
